@@ -12,14 +12,12 @@ export default class Paint {
         this.undoLimit = 10;
 
         this.layers = [];
-        this.layers[0] = this.canvas
-        this.layers[0].context = this.context;
 
         this.newLayer();
 
-        this.activeLayer = 0;
+        this.activeLayer = -1;
 
-        this.layerCount = this.layers[this.activeLayer].length;
+        this.layerCount = this.layers.length;
 
         self = this;
     }
@@ -34,29 +32,31 @@ export default class Paint {
     }
 
     init() {
-        this.layers[this.activeLayer].onmousedown = e => this.onMouseDown(e);
+        this.canvas.onmousedown = e => this.onMouseDown(e);
 
     }
 
     onMouseDown(e) {
+
+        console.log("a");
         
         this.savedData = this.context.getImageData(0,0,this.canvas.clientWidth, this.canvas.clientHeight);
 
         if(this.undoStack.length >= this.undoLimit) this.undoStack.shift();
         this.undoStack.push(this.savedData);
 
-        this.layers[this.activeLayer].onmousemove = e => this.onMouseMove(e);
+        this.canvas.onmousemove = e => this.onMouseMove(e);
         document.onmouseup = e => this.onMouseUp(e);
 
-        this.startPos = getMouseCoordsOnCanvas(e, this.layers[this.activeLayer]);
+        this.startPos = getMouseCoordsOnCanvas(e, this.canvas);
 
         this.lweight = getLineweight();
 
-        this.layers[this.activeLayer].context.lineWidth = this.lweight;
-        this.layers[this.activeLayer].context.lineCap = 'round';
-        this.layers[this.activeLayer].context.lineJoin = 'round';
+        this.context.lineWidth = this.lweight;
+        this.context.lineCap = 'round';
+        this.context.lineJoin = 'round';
         let color = getColor();
-        this.layers[this.activeLayer].context.strokeStyle = 'rgba(' + color._r + ', ' + color._g + ', ' + color._b + ', ' + color._a + ')'
+        this.context.strokeStyle = 'rgba(' + color._r + ', ' + color._g + ', ' + color._b + ', ' + color._a + ')'
 
         switch(this.tool){
             case Tool.TOOL_ERASER:
@@ -67,14 +67,14 @@ export default class Paint {
             case Tool.TOOL_FILL:
                 new Fill(this.canvas, this.startPos, color);
                 break;
-
             default:
                 break;
         }
     }
 
     onMouseMove(e) {
-        this.currentPos = getMouseCoordsOnCanvas(e, this.layers[this.activeLayer]);
+        this.currentPos = getMouseCoordsOnCanvas(e, this.canvas);
+
         switch(this.tool){
             case Tool.TOOL_LINE:
             case Tool.TOOL_CIRCLE:
@@ -91,56 +91,49 @@ export default class Paint {
                 break;
         }
 
-        this.context.drawImage(this.layers[1],0,0,this.canvas.clientWidth, this.canvas.clientHeight);
-
-        for (let i = 0; i < this.layers.length; i++) {
-            this.context.drawImage(this.layers[i],0,0,this.canvas.clientWidth, this.canvas.clientHeight) ;           
-        }
     }
 
     onMouseUp(e) {
-        this.layers[this.activeLayer].onmousemove = null;
+        this.canvas.onmousemove = null;
         document.onmouseup = null;
     }
 
     drawShape() {
-        this.layers[this.activeLayer].context.putImageData(this.savedData,0,0);
+        this.context.putImageData(this.savedData,0,0);
 
-        this.layers[this.activeLayer].context.beginPath();
+        this.context.beginPath();
 
         if(this.tool == Tool.TOOL_LINE) {
-            this.layers[this.activeLayer].context.moveTo(this.startPos.x, this.startPos.y);
-            this.layers[this.activeLayer].context.lineTo(this.currentPos.x, this.currentPos.y);
+            this.context.moveTo(this.startPos.x, this.startPos.y);
+            this.context.lineTo(this.currentPos.x, this.currentPos.y);
         }
         else if(this.tool == Tool.TOOL_RECT) {
-            this.layers[this.activeLayer].context.lineCap = 'mitre';
-            this.layers[this.activeLayer].context.lineJoin = 'mitre';
-            this.layers[this.activeLayer].context.rect(this.startPos.x, this.startPos.y, this.currentPos.x - this.startPos.x, this.currentPos.y - this.startPos.y)
+            this.context.lineCap = 'mitre';
+            this.context.lineJoin = 'mitre';
+            this.context.rect(this.startPos.x, this.startPos.y, this.currentPos.x - this.startPos.x, this.currentPos.y - this.startPos.y)
         }
         else if(this.tool == Tool.TOOL_CIRCLE) {
             let radX = Math.abs(this.currentPos.x - this.startPos.x);
             let radY = Math.abs(this.currentPos.y - this.startPos.y);
-            this.layers[this.activeLayer].context.ellipse(this.startPos.x, this.startPos.y, radX, radY, 0, 0, 2 * Math.PI, false)
+            this.context.ellipse(this.startPos.x, this.startPos.y, radX, radY, 0, 0, 2 * Math.PI, false)
         }
         
-        this.layers[this.activeLayer].context.stroke();
+        this.context.stroke();
     }
 
     drawFreeLine() {
-        this.layers[this.activeLayer].context.lineTo(this.currentPos.x, this.currentPos.y);
-        this.layers[this.activeLayer].context.putImageData(this.savedData,0,0);
-        this.layers[this.activeLayer].context.stroke();
-        console.log("a");
-        this.context.drawImage(this.layers[1],0,0,this.canvas.clientWidth, this.canvas.clientHeight);
+        this.context.lineTo(this.currentPos.x, this.currentPos.y);
+        this.context.putImageData(this.savedData,0,0);
+        this.context.stroke();
     }
 
     eraser() {
-        this.layers[this.activeLayer].context.globalCompositeOperation = "destination-out";
-        this.layers[this.activeLayer].context.strokeStyle = "rgba(255,255,255,1)";
-        this.layers[this.activeLayer].context.lineTo(this.currentPos.x, this.currentPos.y);
-        this.layers[this.activeLayer].context.putImageData(this.savedData,0,0);
-        this.layers[this.activeLayer].context.stroke();
-        this.layers[this.activeLayer].context.globalCompositeOperation = "source-over";
+        this.context.globalCompositeOperation = "destination-out";
+        this.context.strokeStyle = "rgba(255,255,255,1)";
+        this.context.lineTo(this.currentPos.x, this.currentPos.y);
+        this.context.putImageData(this.savedData,0,0);
+        this.context.stroke();
+        this.context.globalCompositeOperation = "source-over";
     }
 
     undoPaint() {

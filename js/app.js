@@ -12,12 +12,7 @@ let selectedLayer = "0";
 
 let canvasShape = localStorage["CanvasShape"];
 
-document.querySelectorAll("canvas").forEach(
-    item => {
-        let canvasId = item.getAttribute("id");
-        setCanvasSize(canvasId, canvasShape);
-    }
-);
+setCanvasSize("canvas", canvasShape);
 
 
 var imglLoader = document.getElementById("image-input");
