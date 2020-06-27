@@ -1,0 +1,375 @@
+:root {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #aaa;
+    font-size: 8px;
+}
+
+body {
+    margin: 0px;
+    background-color: #222222;
+    height: 100vh;
+}
+
+.container {
+    width: 1380px;
+    margin: auto;
+    padding: 50px;
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+    line-height: 0.3em;
+}
+
+.selection img {
+    width: 80px;
+    margin: 16px;
+}
+
+.selection {
+    margin-bottom: 34px;
+    border: 2px solid #666;
+    border-radius: 16px;
+    padding: 32px;
+    padding-top: 0px;
+    cursor: pointer;
+}
+
+.selection .item {
+    display: inline-block;
+    padding: 16px;
+}
+
+.selection .item.active {
+    background-color: #666;
+    color: #222;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.center{
+    align-items: center;
+    text-align: center;
+}
+
+.shape-sel {
+    background-color: #fff;
+    display: inline-block;
+    margin: 16px;
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.container a.button {
+    display: inline-block;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: steelblue;
+    box-shadow: 0px 0px 20px  rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    color: initial;
+}
+
+.container a.button:active {
+    background-color: skyblue;
+    box-shadow: 0px 0px 5px  rgba(0, 0, 0, 0.3);
+}
+
+.selection.question {
+    width: 100%;
+    margin-bottom: 16px;
+    padding-top: 16px;
+}
+
+.selection.question.active {
+    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.selection.question textarea {
+    border: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    padding: 16px;
+    vertical-align: text-top;
+    font-family: inherit;
+    margin-top: 8px;
+    background-color: #666;
+}
+
+.selection.question.active textarea {
+    background-color: #fff;
+}
+
+.sidebar-left {
+    display: inline-block;
+    width: 50%;
+}
+
+.sidebar-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    max-height: 100vh;
+    display: inline-block;
+    max-width: 33%;
+    background-color: #ddd;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.3);
+    padding: 64px 160px 32px 48px;
+    color: #444;
+}
+
+.toolbox {
+    height: 100%;
+    position: absolute;
+    background-color: #444444;
+}
+
+.toolbox.left .group {
+    border-bottom: thin solid #aaa;
+}
+
+.toolbox.left {
+    left: 0px;
+    top: 0px;
+    width: 48px;
+    border-right: thin solid gray;
+    z-index: 2;
+}
+
+.toolbox.left .item {
+    width: 32px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.toolbox.left .item img {
+    width: 100%;
+    height: auto;
+}
+.toolbox .group.colors .item {
+    width: 32px;
+    height: 32px;
+    margin: auto;
+}
+
+.toolbox.left .item:hover {
+    background-color: #222;
+}
+
+.toolbox .item.active {
+    background-color: #666;
+}
+
+.toolbox.left .group.settings {
+    position: absolute;
+    bottom: 20px;
+}
+
+.toolbox.left .group.colors input[type="color" i] {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: unset;
+    padding: 0px;
+}
+
+.toolbox.right {
+    right: 0px;
+    top: 0px;
+    width: 30vw;
+    border-left: thin solid gray;
+    z-index: 2;
+}
+
+.toolbox.top{
+    height: 40px;
+    margin-left: 40px;
+    padding: 8px;
+    width: 70%;
+    background-color: #333;
+    font-size: 1.8em;
+    
+}
+
+.toolbox.top .group {
+    padding: 0px 8px;
+    margin-top: 8px;
+    border-left: thin solid;
+}
+
+.toolbox.top .group.shape {
+    margin: 0px;    
+}
+
+.toolbox.top .item{
+    padding: 0px 8px;
+}
+
+.toolbox.top .item img {
+    position: relative;
+    width: 24px;
+    padding: 0px 4px;
+    bottom: -8px;
+}
+
+.toolbox.top .item img:hover {
+    background-color: #222222;
+}
+
+.toolbox.top .item img.active {
+    background-color: #666666;
+}
+
+.toolbox.right {
+    font-size: 2em;
+}
+
+.toolbox.right .group .header {
+    background-color: #666;
+    padding: 16px;
+    font-weight: 700;
+}
+
+.toolbox.right .item {
+    padding: 16px;
+    padding-bottom: 0px;
+}
+
+.toolbox.right img {
+    width: 64px;
+    height: 64px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+    border-radius: 8px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+#canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-83%, -47%);
+    background-color: #fff;
+    box-shadow: 0px 0px 10px #000000;
+}
+
+.slider {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 120px;
+    height: 8px; 
+    background: #aaa; 
+    outline: none;  
+    opacity: 0.7; 
+    transition: opacity .2s;
+    border-radius: 6px;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #666;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+.input-text {
+-webkit-appearance: none;
+appearance: none;
+width: 32px;
+height: 24px;
+border: none;
+padding: 4px;
+text-align: center;
+background-color: #aaa;
+margin-left: 8px;
+color: #444;
+}
+
+.sp-replacer {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+    border-radius: 8px;
+    border: none;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.sp-preview {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    margin: 0;
+    border: thin solid grey;
+    background: none;
+}
+
+.sp-preview-inner {
+    border-radius: 4px;
+}
+
+.sp-container {
+    border: #444444;
+    background: none;
+    border-radius: 8px;
+}
+
+.sp-container * {
+    border-radius: 4px;
+}
+
+.sp-initial {
+    background: none;
+}
+
+.sp-initial * {
+    border-radius: 0;
+}
+
+.sp-input {
+    border: none;
+}
+
+.sp-picker-container{
+    background: gray;
+    margin-top: 3px;
+    border: none;
+}
+
+.sp-input-container {
+    background-color: lightgray;
+}
+
+.sp-aplha-handle {
+    border: none;
+    background: #444444;
+    border-radius: 50%;
+}
+
+.sp-dd, .sp-button-container {
+    display: none;
+}
+
+.canvas-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-83%, -47%);
+    background-color: transparent;
+    box-shadow: 0px 0px 10px #000000;
+}

@@ -1,0 +1,125 @@
+<head>
+
+    <!--JS and CSS for color picker-->
+    <link rel='stylesheet' href='css/spectrum.css' />
+    
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;};</script>
+
+    <!-- normal script imports etc  -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>    
+    <script src="js/spectrum.js"></script>    
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+
+    
+    <!--Linking the javascript and CSS files-->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" type="module" defer></script>
+
+    <title>PowerPost</title>
+
+</head>
+<body>
+
+    <div class="toolbox left">
+
+        <div class="group commands">
+
+            <div class="item" data-command="undo" title="Undo">
+                <img src="assets/icons/icons8-undo-50.png" alt="">
+            </div>
+            <div class="item" data-command="import-image" title="Import Image">
+                <img src="assets/icons/icons8-full-image-50.png" alt="">
+                <input id="image-input" type="file" style="display:none;" accept="image/*"/>
+            </div>
+            <div class="item" data-command="save-image" title="Save Image">
+                <img src="assets/icons/save_50px.png" alt="">
+            </div>
+        </div>
+
+        <div class="group tools ">
+            
+            <div class="item active" data-tool="brush" title="Brush">
+                <img src="assets/icons/icons8-illustrator-50.png" alt="">
+            </div>
+            <div class="item" data-tool="shape" title="Shape">
+                <img id= "imgShape" src="assets/icons/rectangular_50px.png" alt="">
+            </div>
+            <div class="item" data-tool="pen" title="Pen">
+                <img src="assets/icons/icons8-pen-50-2.png" alt="">
+            </div>
+            <div class="item" data-tool="text" title="Text">
+                <img src="assets/icons/icons8-add-text-50.png" alt="">
+            </div>
+            <div class="item" data-tool="eraser" title="Eraser">
+                <img src="assets/icons/icons8-eraser-50.png" alt="">
+            </div>
+            <div class="item" data-tool="fill-color" title="Fill Color">
+                <img src="assets/icons/icons8-fill-color-50.png" alt="">
+            </div>
+
+        </div>
+
+        <div class="group colors">
+
+            <div class="item" data-color="color-picker" title="Color">
+                <input type="text" id="selcolor">
+            </div>
+
+        </div>
+
+        <div class="group settings">
+
+            <div class="item" data-tool="setting" title="Preferences">
+                <img src="assets/icons/settings_50.png" alt="">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="canvas-container">
+
+        <div class="toolbox top">
+
+            <div class="group shape"  style="display: none;">
+                <span class ="item" title="Shape">
+                    Select Shape: <img src="assets/icons/line_50px.png" data-shape="line" alt=""><img src="assets/icons/circle_50px.png" data-shape="circle" alt=""><img src="assets/icons/rectangular_50px.png" data-shape="rectangle" alt="" class="active">
+                </span>
+
+            </div>
+
+            <div class="group linewidth" style="display:inline-block;">
+                
+                <span class="item" title="Linewidth">
+                    Lineweight: <input type="range"  min="2" max="50" value="2" class="slider" id="lineweight-slider">
+                    <input type="text" class="input-text" id= "lineweight-value" placeholder="2">
+                </span>
+
+            </div>
+
+        </div>
+
+        <canvas id ="layer-1 active" class="canvas-layer" data-canvas = "0"></canvas>
+        <canvas id="canvas" data-canvas = "1"></canvas>
+        
+        
+    </div>
+
+    <div class="toolbox right">
+
+        <div class="group layer">
+
+            <div class="header">
+                Layers
+            </div>
+            <div class="item"> <img src="" alt="" data-layer-id="1"> Layer 1</div>
+            <div class="item"> <img src="" alt="" data-layer-id="0"> Background</div>
+            
+        </div>
+
+    </div>
+
+</body>

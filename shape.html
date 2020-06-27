@@ -1,0 +1,56 @@
+<head>
+   
+    <!--Linking the javascript and CSS files-->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/shape.js" type="module" defer></script>
+
+    <title>Select Canvas Size | PowerPost</title>
+
+</head>
+
+<body>
+    <div class="container center">
+
+        <div class="selection med">
+            <h1>Select Medium</h2>
+            <div class="item active" data-medium="digital">
+                <img src="assets/icons/widescreen_96px.png" alt="" >
+                <br/>Digital
+            </div>
+            <div class="item" data-medium="print">
+                <img src="assets/icons/paper_96px.png" alt="" >
+                <br/>Print
+            </div>
+        </div>
+
+        <div class="selection cnv">
+            <h1>Select Canvas Shape</h1>
+            <div class="item active" id = "square">
+                <div class = "shape-sel active" style = "width: 120px; height: 120px"></div>
+                <br/>Square
+            </div>
+            <div class="item" id = "169portrait" >
+                <div class = "shape-sel" style = "width: 120px; height: 213px"></div>
+                <br/>16:9 Portrait
+            </div>
+            <div class="item" id = "169landscape">
+                <div class = "shape-sel"  style = "width: 213px; height: 120px"></div>
+                <br/>16:9 Landscape
+            </div>
+            <div class="item" id = "A4portrait" style="display: none;">
+                <div class = "shape-sel"  style = "width: 150px; height: 213px;"></div>
+                <br/>A3 Portrait
+            </div>
+            <div class="item" id = "A4landscape" style="display: none;">
+                <div class = "shape-sel"  style = "width: 213px; height: 150px;"></div>
+                <br/>A3 Landscape
+            </div>
+        </div>
+
+        <a href="index.html" class="continue button">Continue</a>
+
+    </div>
+    
+
+
+</body>
