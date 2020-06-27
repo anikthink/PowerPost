@@ -125,9 +125,18 @@ $("#selcolor").spectrum({
 //setting active Layer from right toolbar
 document.querySelectorAll("[data-layer-id]"). forEach(
     item => {
+
+        selectedLayer = item.getAttribute("data-layer-id");
+        
+        if(selectedLayer != "-1") {
+            paint.newLayer();
+        }
+                
         item.addEventListener("click", e => {
             selectedLayer = item.getAttribute("data-layer-id");
             paint.selectLayer(selectedLayer);
         })
     }
 )
+
+console.log(paint.layers)

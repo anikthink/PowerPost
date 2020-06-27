@@ -13,8 +13,6 @@ export default class Paint {
 
         this.layers = [];
 
-        this.newLayer();
-
         this.activeLayer = -1;
 
         this.layerCount = this.layers.length;
@@ -24,7 +22,7 @@ export default class Paint {
 
     selectLayer(layerId) {
         this.activeLayer = parseInt(layerId);
-        console.log(this.layers[this.activeLayer].context);
+        console.log(this.activeLayer);
     }
 
     set activeTool(tool) {
@@ -37,9 +35,7 @@ export default class Paint {
     }
 
     onMouseDown(e) {
-
-        console.log("a");
-        
+     
         this.savedData = this.context.getImageData(0,0,this.canvas.clientWidth, this.canvas.clientHeight);
 
         if(this.undoStack.length >= this.undoLimit) this.undoStack.shift();
@@ -96,6 +92,17 @@ export default class Paint {
     onMouseUp(e) {
         this.canvas.onmousemove = null;
         document.onmouseup = null;
+
+        this.saveAction();
+
+        for (let i = 0; i < this.layers.length; i++) {
+            this.context.globalCompositeOperation = "destination-out";
+            this.context.drawImage(this.layers[i],0,0);
+            this.context.globalCompositeOperation = "source-over";
+            this.context.drawImage(this.layers[i],0,0);
+            console.log("b");
+        }
+
     }
 
     drawShape() {
@@ -146,7 +153,6 @@ export default class Paint {
     
 
     handleImage() {
-        console.log(self);
         const FR = new FileReader();
         FR.addEventListener("load", (evt) => {
             const img = new Image();
@@ -159,15 +165,32 @@ export default class Paint {
     }
 
     drawImg(img) {
-        console.log(img);
         this.context.drawImage(img,0,0);
     }
 
     newLayer() {
         this.layers.push(document.createElement("canvas"));
-        this.layers[this.layers.length-1].context = canvas.getContext("2d");
+        this.layers[this.layers.length-1].context = this.layers[this.layers.length-1].getContext("2d");
         this.layers[this.layers.length-1].width = this.canvas.clientWidth;
         this.layers[this.layers.length-1].height = this.canvas.clientHeight;
+    }
+
+    saveAction() {
+        if (this.activeLayer < 0) return;
+        console.log("a");
+        let x = this.undoStack.length - 1;
+        this.tmpCanvas = document.createElement("canvas");
+        this.tmpCanvas.height = this.canvas.clientHeight;
+        this.tmpCanvas.width = this.canvas.clientWidth;
+        this.tmpContext = this.tmpCanvas.getContext("2d");
+        this.tmpContext.globalCompositeOperation = "source-over";
+        this.tmpContext.putImageData(this.undoStack[x],0,0);
+        this.tmpContext.globalCompositeOperation = "destination-out";
+        if (this.undoStack[x-1]) {
+            this.tmpContext.putImageData(this.undoStack[x-1],0,0);
+        }
+        this.layers[this.activeLayer].context.drawImage(this.tmpCanvas,0,0);
+        console.log(this.tmpCanvas)
     }
 
 }
