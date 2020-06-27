@@ -170,5 +170,11 @@ export default class Paint {
         this.layers[this.layers.length-1].height = this.canvas.clientHeight;
     }
 
+    saveAction() {
+        x = this.undoStack.length;
+        this.tmpCanvas = document.createElement("canvas");
+        this.tmpCtx = this.canvas
+    }
+
 }
 
