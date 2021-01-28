@@ -9,7 +9,7 @@
   "author": "Anik Ghosh",
   "license": "ISC",
   "dependencies": {
-    "electron": "^8.2.5",
+    "electron": "^9.4.0",
     "jquery": "^3.5.1"
   }
 }
